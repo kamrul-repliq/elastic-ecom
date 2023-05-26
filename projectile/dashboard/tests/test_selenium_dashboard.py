@@ -2,15 +2,17 @@ import pytest
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 
+
 @pytest.mark.django_db
 def create_new_admin_user(create_admin_user):
     assert create_admin_user.__str__() == "admin"
+
 
 @pytest.mark.django_db
 def test_dashboard_admin_login(live_server, chrome_browser_instance):
     browser = chrome_browser_instance
 
-    browser.get(('%s%s' % (live_server.url, "/admin/login/")))
+    browser.get(("%s%s" % (live_server.url, "/admin/login/")))
 
     user_name = browser.find_element(By.NAME, "username")
     user_password = browser.find_element(By.NAME, "password")
