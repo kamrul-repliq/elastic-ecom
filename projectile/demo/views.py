@@ -5,7 +5,7 @@ from django.db.models import F,When,Case,Prefetch
 from rest_framework.generics import (
     ListAPIView,
     ListCreateAPIView,
-    RetrieveUpdateDestroyAPIView
+    RetrieveUpdateDestroyAPIView,
 )
 from inventory.models import (
     Category,
@@ -57,6 +57,11 @@ class ProductDetail(RetrieveUpdateDestroyAPIView):
         )
     ).annotate(profit=F('selling_price')-F('buying_price'))
     lookup_field = "slug"
+
+
+class StockList(ListCreateAPIView):
+    serializer_class = StockSerializer
+    queryset = Stock.objects.filter().select_related('product')
 
 def index(request):
     data = models.Category.objects.only("uid","name","is_active")

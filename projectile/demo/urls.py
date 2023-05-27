@@ -13,6 +13,7 @@ urlpatterns = [
     path('category/<uuid:uid>',views.CategoryDetail.as_view(),name='category-detail'),
     path('products',views.ProductList.as_view(), name='products'),
     path('products/<slug:slug>', views.ProductDetail.as_view(), name='product-detail'),
-    path('product-by-category/<str:name>', views.ProductByCategoryList.as_view(), name='product-by-category')
+    path('product-by-category/<str:name>', views.ProductByCategoryList.as_view(), name='product-by-category'),
+    path('stocks',views.StockList.as_view(), name='stocks'),
 
 ]

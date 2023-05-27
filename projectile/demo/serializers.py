@@ -28,6 +28,13 @@ class ProductSerializer(serializers.ModelSerializer):
 
 
 class StockSerializer(serializers.ModelSerializer):
+    # product_name = serializers.CharField(source='product__name')
+    product_name = serializers.CharField(source='product.name',read_only=True)
     class Meta:
         model = Stock
-        fileds = "__all__"
+        fields = (
+            "uid",
+            "product",
+            'product_name',
+            "stock",
+        )
