@@ -138,3 +138,11 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': "rest_framework.pagination.LimitOffsetPagination",
     'PAGE_SIZE': 10,
 }
+
+# @pytest.fixture(autouse=True)
+# def use_dummy_cache_backend(settings):
+#     settings.CACHES = {
+#         "default": {
+#             "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+#         }
+#     }
