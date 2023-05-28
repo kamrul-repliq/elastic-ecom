@@ -28,28 +28,39 @@ class ProductDocument(Document):
         return super(ProductDocument, self).get_queryset().select_related(
             'category'
         )
+    def get_instances_from_related(self, related_instance):
+        if isinstance(related_instance, Category):
+            return related_instance.products.all()
+
+@registry.register_document
+class ProductWithStockDocument(Document):
+    category = fields.ObjectField(properties={
+        'uid': fields.TextField(),
+        'name': fields.TextField(),
+    })
+    stock_list = fields.NestedField(properties = {
+        "uid": fields.TextField(),
+        "product_id": fields.KeywordField(),
+        "stock": fields.IntegerField(),
+    })
+
+    class Index:
+        name = "product_stock"
+
+    class Django:
+        model = Product
+        fields = [
+            "uid","name","selling_price"
+        ]
+
+        related_models = [Stock, Category]
+    def get_queryset(self):
+        return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
+            "stock_list",
+        )
     
-
-# @registry.register_document
-# class ProductWithStockDocument(Document):
-
-#     stock_list = fields.NestedField(properties = {
-#         "uid": fields.TextField(),
-#         "product_id": fields.IntegerField(),
-#         "stock": fields.IntegerField(),
-#     })
-
-#     class Index:
-#         name = "product_stock"
-
-#     class Django:
-#         model = Product
-#         fields = [
-#             "uid","name","selling_price"
-#         ]
-
-#         related_models = [Stock]
-#     def get_queryset(self):
-#         return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
-#             "stock_list",
-#         )
+    def get_instances_from_related(self, related_instance):
+        if isinstance(related_instance, Stock):
+            return related_instance.product
+        elif isinstance(related_instance, Category):
+            return related_instance.products.all()
