@@ -30,7 +30,7 @@ class ProductDocument(Document):
         )
     def get_instances_from_related(self, related_instance):
         if isinstance(related_instance, Category):
-            return related_instance.product_set.all()
+            return related_instance.products.all()
 
 @registry.register_document
 class ProductWithStockDocument(Document):
@@ -63,4 +63,4 @@ class ProductWithStockDocument(Document):
         if isinstance(related_instance, Stock):
             return related_instance.product
         elif isinstance(related_instance, Category):
-            return related_instance.product_set.all()
+            return related_instance.products.all()
