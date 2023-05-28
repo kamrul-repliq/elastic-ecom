@@ -30,26 +30,26 @@ class ProductDocument(Document):
         )
     
 
-@registry.register_document
-class ProductWithStockDocument(Document):
+# @registry.register_document
+# class ProductWithStockDocument(Document):
 
-    stock_list = fields.NestedField(properties = {
-        "uid": fields.TextField(),
-        "product_id": fields.IntegerField(),
-        "stock": fields.IntegerField(),
-    })
+#     stock_list = fields.NestedField(properties = {
+#         "uid": fields.TextField(),
+#         "product_id": fields.IntegerField(),
+#         "stock": fields.IntegerField(),
+#     })
 
-    class Index:
-        name = "product_stock"
+#     class Index:
+#         name = "product_stock"
 
-    class Django:
-        model = Product
-        fields = [
-            "uid","name","selling_price"
-        ]
+#     class Django:
+#         model = Product
+#         fields = [
+#             "uid","name","selling_price"
+#         ]
 
-        related_models = [Stock]
-    def get_queryset(self):
-        return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
-            "stock_list",
-        )
+#         related_models = [Stock]
+#     def get_queryset(self):
+#         return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
+#             "stock_list",
+#         )

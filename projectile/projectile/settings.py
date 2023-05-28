@@ -17,6 +17,8 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+APPEND_SLASH = False
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -32,6 +34,7 @@ INSTALLED_APPS = [
     # 'silk',
     "debug_toolbar",
     'django_elasticsearch_dsl',
+    'search',
 ]
 
 ELASTICSEARCH_DSL={
