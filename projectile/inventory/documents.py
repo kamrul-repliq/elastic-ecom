@@ -22,15 +22,15 @@ class ProductDocument(Document):
 
         fields = ['uid','name','selling_price']
 
-        related_models = [Category]
+    #     related_models = [Category]
     
-    def get_queryset(self):
-        return super(ProductDocument, self).get_queryset().select_related(
-            'category'
-        )
-    def get_instances_from_related(self, related_instance):
-        if isinstance(related_instance, Category):
-            return related_instance.products.all()
+    # def get_queryset(self):
+    #     return super(ProductDocument, self).get_queryset().select_related(
+    #         'category'
+    #     )
+    # def get_instances_from_related(self, related_instance):
+    #     if isinstance(related_instance, Category):
+    #         return related_instance.products.all()
 
 @registry.register_document
 class ProductWithStockDocument(Document):
@@ -53,14 +53,14 @@ class ProductWithStockDocument(Document):
             "uid","name","selling_price"
         ]
 
-        related_models = [Stock, Category]
-    def get_queryset(self):
-        return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
-            "stock_list",
-        )
+        # related_models = [Stock, Category]
+    # def get_queryset(self):
+    #     return super(ProductWithStockDocument, self).get_queryset().prefetch_related(
+    #         "stock_list",
+    #     )
     
-    def get_instances_from_related(self, related_instance):
-        if isinstance(related_instance, Stock):
-            return related_instance.product
-        elif isinstance(related_instance, Category):
-            return related_instance.products.all()
+    # def get_instances_from_related(self, related_instance):
+    #     if isinstance(related_instance, Stock):
+    #         return related_instance.product
+    #     elif isinstance(related_instance, Category):
+    #         return related_instance.products.all()
