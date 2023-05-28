@@ -24,7 +24,7 @@ class ProductSerializer(serializers.ModelSerializer):
     profit = serializers.IntegerField(read_only=True)
     class Meta:
         model = Product
-        fields = ("uid","name","slug","selling_price","profit","is_active","description","category","stock_list")
+        fields = ("uid","name","slug","selling_price","profit","is_active","description","category")
 
 
 class StockSerializer(serializers.ModelSerializer):

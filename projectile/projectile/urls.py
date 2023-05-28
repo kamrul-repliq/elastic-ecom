@@ -6,6 +6,7 @@ import debug_toolbar
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('demo.urls')),
+    path('search',include('search.urls')),
     # re_path(r'^silk', include('silk.urls', namespace='silk')),
     path('__debug__/', include('debug_toolbar.urls')),
 ]
